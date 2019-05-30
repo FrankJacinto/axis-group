@@ -32,7 +32,7 @@
 
          }
          else{
-            echo "Usuario: ". $_SESSION["usuario"];
+            echo "Bienvenido : ".$_SESSION["tipo_usuario"]." ". $_SESSION["usuario"];
          }
     ?>
     <?php
@@ -53,7 +53,7 @@
       
          <div class="mb-3">
            <div class="form-check form-check-inline">
-              <label><input class="form-check-input" type="radio" name="db" id="dbglobal" value="global" checked="">Global</label>
+              <label><input class="form-check-input" type="radio" name="db" id="dbglobal" value="global" checked=". ">Global</label>
            </div>
 
            <div class="form-check form-check-inline">

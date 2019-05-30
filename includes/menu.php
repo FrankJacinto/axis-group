@@ -31,7 +31,7 @@
         <a class="nav-link" href="listado.php">Consultas</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Cerrar Sesion</a>
+        <a class="nav-link" href="cerrar-sesion.php">Cerrar Sesion</a>
       </li>
       
  

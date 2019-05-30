@@ -14,8 +14,83 @@
 	
 </head>
 <body>
+
+	<?php
+    
+	include("includes/config.php");
+	
+
+	//nuevo codigo 
+    $error="";
+	if(isset($_POST["btn-ingresar"])){
+
+		if ((isset($_POST["usuario"])) && (isset($_POST["clave"]))) {
+			$usuario=$_POST["usuario"];
+			$clave=$_POST["clave"];
+          
+            $campo_15="usuario, estado, tipo_usuario";
+			$tabla_15 = "usuario";
+			$donde_15 = "usuario='$usuario' and ";
+			$donde_15.="clave='$clave'";
+			$grupo_15 = "";
+			$orden_15 = "";
+			$array_15 = f_select($campo_15,$tabla_15,$donde_15,$grupo_15,$orden_15);
+			$user=0;
+
+			while($lista_15 = mysqli_fetch_array($array_15)){ 
+				$estado=$lista_15[1];
+				$tipo_usuario=$lista_15[2];
+				
+				$user=$user+1;
+	
+	        }
+
+	        if($user==1){
+
+	        	if ($estado=="1") {
+	        		session_start();
+	        		$_SESSION["usuario"]=$usuario;
+	        		$_SESSION["tipo_usuario"]=$tipo_usuario;
+	        		header("Location: main.php");
+
+	        	}
+	        	else{
+	        		$error="Cuenta desabilitada, contactarse con la empresa";
+
+	        	}
+
+	        	
+
+	        }
+	        else{
+           
+	        	header("Location: index.php?id=0");
+
+
+	        }
+            
+
+		}
+		else{
+			header ("Location: index.php");
+		}
+	}
+         
+ ?>
+
+ <?php
+   $id;
+   if ((isset($_GET["id"]))&& ($_GET["id"]==0)) {
+   	$error="Usuario y/o contraseña incorrecta";
+
+   	
+  }
+   else{
+
+   }
+?>
 	<div class="login-form">    
-    <form action="procesa-login.php" method="post" name="form-login">
+    <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" name="form-login">
 		<div align="center"><img src="http://www.axis-gl.com/images/logo-mail.png" alt="..." class="img-thumbnail"></div>
 		<br>
     	<h4 class="modal-title">Bienvenido Axis Group</h4>
@@ -29,10 +104,23 @@
             <label class="checkbox-inline"><input type="checkbox"> Remember me</label>
             <a href="#" class="forgot-link">Forgot Password?</a>
         </div> 
-        <input type="submit" class="btn btn-primary btn-block btn-lg" value="Login" id="btn-ingresar" name="btn-ingresar">              
-    </form>			
-    <div class="text-center small">Don't have an account? <a href="#">Sign up</a></div>
+        <input type="submit" class="btn btn-primary btn-block btn-lg" value="Login" id="btn-ingresar" name="btn-ingresar">
+
+                     
+    </form>	
+    <?php
+    if ($error!="") {
+    	echo "<div class='alert alert-danger' role='alert'> 
+    	<button class='close' data-dismiss='alert'><span>&times;</span> </button>
+    	$error 
+    	</div>";
+    }
+    ?> 		
+    <!--div class="text-center small">Don't have an account? <a href="#">Sign up</a></div-->
+
+    
 </div>
+
 
 
 </body>
