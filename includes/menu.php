@@ -15,7 +15,6 @@
 
 </head>
 <body>
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">AXIS GROUP</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,22 +23,74 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
+     <?php
+     
+     session_start();
+
+     if ($_SESSION["tipo_usuario"]==2) { ?>
       <li class="nav-item active">
         <a class="nav-link" href="main.php">Registro de Ordenes <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item" >
-        <a class="nav-link" href="listado.php">Consultas</a>
+     <?php  }       ?>
+
+     <?php if ($_SESSION["tipo_usuario"]==1) { ?>
+      <li class="nav-item active">
+        <a class="nav-link" href="main.php">Administrar <span class="sr-only">(current)</span></a>
       </li>
+     <?php  }       ?>
+
+      <?php if ($_SESSION["tipo_usuario"]==4) { ?>
+      <li class="nav-item active">
+        <a class="nav-link" href="main.php">Documentacion <span class="sr-only">(current)</span></a>
+      </li>
+     <?php  }       ?>
+
+     <?php if ($_SESSION["tipo_usuario"]==5) { ?>
+      <li class="nav-item active">
+        <a class="nav-link" href="main.php">Seguimiento<span class="sr-only">(current)</span></a>
+      </li>
+     <?php  }       ?>
+
+      <?php if ($_SESSION["tipo_usuario"]==3) { ?>
+      <li class="nav-item active">
+        <a class="nav-link" href="main.php">Consultas<span class="sr-only">(current)</span></a>
+      </li>
+     <?php  }       ?>
+
       <li class="nav-item">
         <a class="nav-link" href="cerrar-sesion.php">Cerrar Sesion</a>
       </li>
+
       
- 
+      
     </ul>
-    <form class="form-inline my-2 my-lg-0" action="consultar-orden.php" method="post">
-      <input class="form-control mr-sm-2" type="text" placeholder="buscar por orden" aria-label="Search" id="num_orden" name="num_orden" required>
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Filtrar</button>
-    </form>
+    <a class="navbar-brand" href="#"> <?php  if ($_SESSION["tipo_usuario"]!=5){
+       echo "Bienvenido: ".$_SESSION["usuario"]; 
+       }
+       else{
+           $ruc= $_SESSION["usuario"];
+           $campo_15="razon_social";
+           $tabla_15 = "cliente";
+           $ruc=$_SESSION["usuario"];
+           $donde_15 = "RUC='$ruc'";
+           $grupo_15 = "";
+           $orden_15 = "";
+
+           $array_15 = f_select($campo_15,$tabla_15,$donde_15,$grupo_15,$orden_15);
+
+
+           while($lista_15 = mysqli_fetch_array($array_15)){ 
+             echo " Bienvenido Sres. ".$lista_15[0];
+             
+          }
+
+        
+      }
+        ?>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
   </div>
 </nav>
 

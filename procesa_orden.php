@@ -6,45 +6,35 @@ if(isset($_POST["enviar"])){
 
    $orden=$_POST["orden"];
    $tipo=$_POST["tipo"];
+   $ruc=$_POST["ocultito"];
    $descripcion=$_POST["descripcion"];
    $usuario="fjacinto";
    $booking =$_POST["booking"];
    $cliente=$_POST["cliente"];
 
-  /*  $revisar = getimagesize($_FILES["image"]["tmp_name"]);
-    if($revisar !== false){
-        $image = $_FILES['image']['tmp_name'];
-        $imgContenido = addslashes(file_get_contents($image));
-        
-        //Credenciales Mysql
+  
 
-       /* $Host = 'localhost';
-        $Username = 'root';
-        $Password = '';
-        $dbName = 'axis';
-        
-        //Crear conexion con la abse de datos
-        $db = new mysqli($Host, $Username, $Password, $dbName);
-        
-        // Cerciorar la conexion
-        if($db->connect_error){
-            die("Connection failed: " . $db->connect_error);
-        }
-        */
-        
-        //Insertar imagen en la base de datos
-       
-       
-     // $insertar = $db->query("INSERT into ordenes(id,orden,tipo,usuario,descripcion,fecha,imagen) VALUES ('null', '$orden','$tipo','$usuario','$descripcion', now(),'$imgContenido')");
-		// Condicional para verificar la subida del fichero
+        $campo_00 = "id='null',";
+        $campo_00.= "orden='$orden',";
+        $campo_00.= "tipo='$tipo',";
+        $campo_00.= "usuario='$usuario',";
+        $campo_00.= "descripcion='$descripcion',";
+        $campo_00.= "fecha= now(),";
+        $campo_00.="booking='$booking',";
+        $campo_00.="cliente='$cliente',";
+        $campo_00.="ruc='$ruc'";
 
+        // $campo_00.="cantidad_imagenes='$cantidadimagenes'";
+        
+        $tabla_00 = "ordenes";
+        $guarda = f_insert($campo_00,$tabla_00);
 
+        if($guarda==1 ){
 
-        //Como el elemento es un arreglos utilizamos foreach para extraer todos los valores
-        $cantidadimagenes=0;
-        $fallidas=0;
-        foreach($_FILES["image"]['tmp_name'] as $key => $tmp_name)
-        {
+         //$cantidadimagenes=0;
+         $fallidas=0;
+         foreach($_FILES["image"]['tmp_name'] as $key => $tmp_name)
+         {
         //Validamos que el archivo exista
             if($_FILES["image"]["name"][$key]) {
             $filename = $_FILES["image"]["name"][$key]; //Obtenemos el nombre original del archivo
@@ -63,7 +53,7 @@ if(isset($_POST["enviar"])){
             //Movemos y validamos que el archivo se haya cargado correctamente
             //El primer campo es el origen y el segundo el destino
             if(move_uploaded_file($source, $target_path)) { 
-                echo "El archivo $filename se ha almacenado de forma exitosa.<br>";
+                //echo "El archivo $filename se ha almacenado de forma exitosa.<br>";
                 $cantidadimagenes=$cantidadimagenes+1;
 
             } else {    
@@ -73,32 +63,14 @@ if(isset($_POST["enviar"])){
             }
             closedir($dir); //Cerramos el directorio de destino
         }
-    }
-
-        //Insertar en la base de datos
-
-        $campo_00 = "id='null',";
-        $campo_00.= "orden='$orden',";
-        $campo_00.= "tipo='$tipo',";
-        $campo_00.= "usuario='$usuario',";
-        $campo_00.= "descripcion='$descripcion',";
-        $campo_00.= "fecha= now(),";
-        $campo_00.="booking='$booking',";
-        $campo_00.="cliente='$cliente',";
-        
-        $campo_00.="cantidad_imagenes='$cantidadimagenes'";
-        
-        //$campo_00.= "imagen='$imgContenido'";
-        $tabla_00 = "ordenes";
-        $guarda = f_insert($campo_00,$tabla_00);
-
-        if($guarda==1 && $fallidas==0){
+       }
             
             echo "Insercion correcta";
 
             header("Location: mensaje.php");
 
         }else{
+            header("Location: main.php?ord=1");
              echo "$orden  $tipo  $descripcion $booking $cliente";
               echo "Insercion INcorrecta";
               echo "<br>     $guarda";

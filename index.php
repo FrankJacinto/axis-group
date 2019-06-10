@@ -109,17 +109,31 @@
                      
     </form>	
     <?php
-    if ($error!="") {
-    	echo "<div class='alert alert-danger' role='alert'> 
+    if ($error!="") {?>
+    	<div class='alert alert-danger' role='alert'> 
     	<button class='close' data-dismiss='alert'><span>&times;</span> </button>
-    	$error 
-    	</div>";
-    }
-    ?> 		
+    	<?=$error?> 
+    	</div>
+    <?php }?> 		
     <!--div class="text-center small">Don't have an account? <a href="#">Sign up</a></div-->
 
     
 </div>
+
+<script >
+  $( "#btn-ingresar" ).click(function() {
+  	alert "hola";
+   $.post('cliente/seguimiento.php', {
+            ID : $("input[name='usuario']").val()
+            
+
+            
+        }, function(data){
+            $('#Oculto').html(data);
+        });
+});
+</script>
+
 
 
 

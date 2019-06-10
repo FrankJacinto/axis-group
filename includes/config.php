@@ -38,13 +38,56 @@ function f_select($campos,$tabla,$donde,$agrupado,$order){
 	return $r;
 	mysqli_close($conexion);
 }
+function paginacion($campos,$tabla,$donde,$agrupado,$order,$inicio,$tamanio){
+	$conexion=conexion();
+
+	if(empty($donde)){
+		$s="select $campos from $tabla $agrupado $order limit $inicio,$tamanio";
+	}else{
+		$s="select $campos from $tabla where $donde $agrupado $order limit $inicio,$tamanio";
+	}
+	
+	$r=mysqli_query($conexion,$s);
+
+	return $r;
+	mysqli_close($conexion);
+}
 function f_select_union($campos,$tabla1,$tabla2,$donde,$agrupado,$order){
 	$conexion=conexion();
 
 	if(empty($donde)){
 		$s="select $campos from $tabla1 as o inner join $tabla2 as e  on o.tipo = e.id ";
 	}else{
-		$s="select $campos from $tabla1 as 0 inner join $tabla2 as e where $donde $agrupado $order";
+		$s="select $campos from $tabla1 as o inner join $tabla2 as e where $donde $agrupado $order";
+	}
+	
+	$r=mysqli_query($conexion,$s);
+
+	return $r;
+	mysqli_close($conexion);
+}
+function f_select_clientes($campos,$tabla1,$tabla2,$donde,$agrupado,$order){
+	$conexion=conexion();
+
+	if(empty($donde)){
+		$s="select $campos from $tabla1 as c inner join $tabla2 as u  on c.ide_usuario=u.ide ";
+	}else{
+		$s="select $campos from $tabla1 as o inner join $tabla2 as e where $donde $agrupado $order";
+	}
+	
+	$r=mysqli_query($conexion,$s);
+
+	return $r;
+	mysqli_close($conexion);
+}
+
+function f_select_colaboradores($campos,$tabla1,$tabla2,$donde,$agrupado,$order){
+	$conexion=conexion();
+
+	if(empty($donde)){
+		$s="select $campos from $tabla1 as c inner join $tabla2 as u  on c.ide_usuario=u.ide ";
+	}else{
+		$s="select $campos from $tabla1 as o inner join $tabla2 as u  on c.ide_usuario=u.ide  where $donde $agrupado $order";
 	}
 	
 	$r=mysqli_query($conexion,$s);
