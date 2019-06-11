@@ -1,5 +1,17 @@
 
 
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    
+  
+   
+</head>
+<body>
+
+
+
 <?php
 	$servername = "localhost";
     $username = "root";
@@ -23,7 +35,7 @@
     $resultado = $conn->query($query);
 
     if ($resultado->num_rows>0) {
-    	$salida.="<table  class='table table-striped '>
+    	$salida.="<table  class='table table-striped table-sm '>
         <thead>
           <tr >
             <th scope='col'>Ide</th>
@@ -31,6 +43,7 @@
             <th scope='col'>Booking</th>
             <th scope='col'>Fecha</th>
             <th scope='col'>Adjuntar</th>
+            <th scope='col'>Estado</th>
             
             
           </tr>
@@ -38,19 +51,19 @@
     			
 
     	<tbody>";
-
+       $id=12;
     	while ($fila = $resultado->fetch_assoc()) {
     		$salida.="<tr>
     					<td>".$fila['id']."</td>
     					<td>".$fila['orden']."</td>
     					<td>".$fila['booking']."</td>
     					<td>".$fila['fecha']."</td>
-    					
-                        <td>
 
-                        <a href='' title='Editar datos' class='btn btn-primary btn-sm'><span class='glyphicon glyphicon-edit' aria-hidden='true'></span></a>
-                        <a href='' title='Eliminar' class='btn btn-danger btn-sm'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a>
-                       </td>
+                        <td>
+                        <a data-toggle='modal' href='#exampleModal' onclick='enviar_orden(".$fila['id'].")'; ><img src='../Imagenes/pdf.png' ></a>
+                        </td>
+    					<td>Pendiente</td>
+                        
     				</tr>";
 
     	}
@@ -67,3 +80,12 @@
 
 
 ?>
+<script type="text/javascript">
+    function enviar_orden(id){
+     $("input[name='ide']").val(id);
+
+  }
+</script>
+
+</body>
+</html>
