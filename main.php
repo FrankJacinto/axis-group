@@ -59,11 +59,8 @@
     <div class="container col-centrada">
      
     <div class="col-lg-10 col-xm-6 col-centrada table-responsive">
-      <h3>
-        Listado de despachos aduaneros
-        <small class="text-muted">axis-gl</small>
-      </h3>
-      <table class="table table-striped ">
+      
+      <table class="table table-striped mt-5">
         <thead>
           <tr>
             <th scope="col">Orden</th>
@@ -98,7 +95,8 @@
        }
 
          //$pagina=1;
-         $tamanio_pagina=2;
+         $tamanio_pagina=5;
+         
          $empezar_desde=($pagina-1)*$tamanio_pagina;
 
          //ver cuantas ordenes tiene el cliente
@@ -119,9 +117,15 @@
                   <td><?=$lista_15[3]?></th>
 
                   <td>
-                    <a href="" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit" aria-hidden="true">Imagenes</span></a>
-                    <a href="" onclick="return confirm(\'Esta seguro de borrar los datos '.$row['nombres'].'?\')" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true">Archivos</span></a>
+                  
+                    <form method="post" action="seguimiento.php">
+                      <input type="text" name="bookin" id="bookin" value="<?=$lista_15[2]?>" hidden="">
+                      <button type=" submit" class="btn btn-primary btn-sm"> consultar </button>
+                    </form>
+                    
+                
                   </td>
+
                </tr>
             <?php } ?>
           
@@ -153,6 +157,91 @@
    <?php } ?>
     </div>
   </div>
+
+ 
   
+
+  <script type="text/javascript">
+    function enviar_book(orden){
+    
+      $("input[name='orden1']").val(orden);
+     
+    }
+  </script>
+
+  <div class="modal fade" id="modal_carrousel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <input type="text" name="orden1" id="orden1" >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Imagenes del despacho</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            
+
+
+
+
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              <?php
+            //Recuperar imagenes de un directorio
+              $carpeta="087LIM322071";
+              $directory="Imagenes_ordenes/".$carpeta;
+              $dirint = dir($directory);
+              $cont=0;
+             
+              while (($archivo = $dirint->read()) !== false)
+              {
+                if (strpos($archivo, 'gif')|| strpos($archivo, 'jpg') || strpos($archivo, 'png')){
+                  if($cont==0){?>
+                   <div class="carousel-item active">
+                    <img src="<?=$directory.'/'.$archivo?>" class="d-block w-100" alt="...">
+                  </div>
+                <?php }
+                else{ ?>
+
+                  <div class="carousel-item ">
+                    <img src="<?=$directory.'/'.$archivo?>" class="d-block w-100" alt="...">
+                  </div>
+
+
+                <?php }
+               $cont=$cont+1;
+              }}
+                $dirint->close();
+                ?>
+
+               
+            </div>
+
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  V
+
+  <?php include ("includes/footer.php"); ?>
 </body>
 </html>

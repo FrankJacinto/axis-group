@@ -13,10 +13,7 @@
 	<link rel="stylesheet" type="text/css" href="../css/estilos/estilos-login.css">
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.min.css">
 	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
-  <!-- Para los iconos-->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ 
 
 </head>
 
@@ -77,7 +74,7 @@
                   <td><?=$lista_15[5]?></th>
                   <td>
 
-                    <a href="" title="Editar datos" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                    <a data-toggle="modal" href="#modal_editarcliente" onclick="seleccionar_cliente();" class="btn btn-primary btn-sm">editar</a>
                     <a href="" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos '.$row['nombres'].'?\')" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
                   </td>
                </tr>
@@ -87,6 +84,8 @@
       </table>
     </div>
   </div>
+
+
 
 
 
@@ -168,6 +167,26 @@
     </section>
   </div>
 </div>
+
+ <div class="modal fade" id="modal_editarcliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Editar Cliente</h5>
+
+         
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+        </div>
+        
+      </div>
+    </div>
+   </div>
+
 
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/main.js"></script>

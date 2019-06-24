@@ -1,4 +1,10 @@
-
+body {
+	font-size: 15px;
+	color: #343d44;
+	font-family: "segoe-ui", "open-sans", tahoma, arial;
+	padding: 0;
+	margin: 0;
+}
 table {
 	margin: auto;
 	font-family: "Lucida Sans Unicode", "Lucida Grande", "Segoe Ui";

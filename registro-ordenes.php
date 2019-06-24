@@ -49,36 +49,22 @@
      $usuario=$_SESSION["usuario"];
      $booking =$_POST["booking"];
      $cliente=$_POST["cliente"];
+     
+     $rut=$booking."-";
 
 
-
-     $campo_00 = "id='null',";
-     $campo_00.= "orden='$orden',";
-     $campo_00.= "tipo='$tipo',";
-     $campo_00.= "usuario='$usuario',";
-     $campo_00.= "descripcion='$descripcion',";
-     $campo_00.= "fecha= now(),";
-     $campo_00.="booking='$booking',";
-     $campo_00.="cliente='$cliente',";
-     $campo_00.="ruc='$ruc'";
-
-        // $campo_00.="cantidad_imagenes='$cantidadimagenes'";
-
-     $tabla_00 = "ordenes";
-     $guarda = f_insert($campo_00,$tabla_00);
-
-     if($guarda==1 ){
-
-         $cantidadimagenes=0;
-       $fallidas=0;
-       foreach($_FILES["image"]['tmp_name'] as $key => $tmp_name)
-       {
+     $mensaje="";
+     $cantidadimagenes=0;
+     $fallidas=0;
+     $rutas_imagenes[]=array();
+     foreach($_FILES["image"]['tmp_name'] as $key => $tmp_name)
+     {
         //Validamos que el archivo exista
-        if($_FILES["image"]["name"][$key]) {
+      if($_FILES["image"]["name"][$key]) {
             $filename = $_FILES["image"]["name"][$key]; //Obtenemos el nombre original del archivo
             $source = $_FILES["image"]["tmp_name"][$key]; //Obtenemos un nombre temporal del archivo
             $numeroorden="12345";
-            $directorio = 'ImagenesOrdenes/'; //Declaramos un  variable con la ruta donde guardaremos los archivos
+            $directorio = 'Imagenes_ordenes'.'/'.$booking; //Declaramos un  variable con la ruta donde guardaremos los archivos
             
             //Validamos si la ruta de destino existe, en caso de no existir la creamos
             if(!file_exists($directorio)){
@@ -86,7 +72,8 @@
             }
             
             $dir=opendir($directorio); //Abrimos el directorio de destino
-            $target_path = $directorio.'/'.$booking.$filename; //Indicamos la ruta de destino, así como el nombre del archivo
+            $target_path = $directorio.'/'.$rut.$filename; //Indicamos la ruta de destino, así como el nombre del archivo
+            $rutas_imagenes[$cantidadimagenes]=$target_path;
             
             //Movemos y validamos que el archivo se haya cargado correctamente
             //El primer campo es el origen y el segundo el destino
@@ -103,25 +90,67 @@
           }
         }
         if ($fallidas==0) {
-           $mensaje="Insercion exitosa";
-        }
 
-        //echo "Insercion correcta";
+         $mensaje.=" e imagenes Insertadas exitosamente ";
 
-        
+         $verificar_orden=mysqli_query(conexion(),"SELECT * FROM ordenes where orden='$orden'");
 
-      }else{
-        $mensaje="Ya existe un registro vinculado al Numero de orden";
-        // header("Location: main.php?ord=1");
-        /*echo "$orden  $tipo  $descripcion $booking $cliente";
-        echo "Insercion INcorrecta";
-        echo "<br>     $guarda";
-        echo "<br>     $fallidas";*/
+         $verificar_imagenes=mysqli_query(conexion(),"SELECT * FROM imagenes where id_orden='$orden'");
+
+         if(mysqli_num_rows($verificar_orden)==0 && mysqli_num_rows($verificar_imagenes)==0){
+
+           $campo_00 = "id='null',";
+           $campo_00.= "orden='$orden',";
+           $campo_00.= "tipo='$tipo',";
+           $campo_00.= "usuario='$usuario',";
+           $campo_00.= "descripcion='$descripcion',";
+           $campo_00.= "fecha= now(),";
+           $campo_00.="booking='$booking',";
+           $campo_00.="cliente='$cliente',";
+           $campo_00.="ruc='$ruc',";
+           $campo_00.="estado='Pendiente'";
+           $tabla_00 = "ordenes";
+
+           $guarda = f_insert($campo_00,$tabla_00);
+
+           //Insertar las rutas de las imagenes 
+
+           $tabla_01="imagenes";
+
+           $campo_01= "id='null',";
+
+           for ($i=0; $i <$cantidadimagenes ; $i++) { 
+             $campo_01.= "ruta".($i+1)."='$rutas_imagenes[$i]',";
+           //echo "ruta".($i+1)."='$rutas_imagenes[$i]',";
+           }
+
+           $campo_01.= "id_orden='$orden'";
+           //echo "$campo_01";
+
+           $guarda2=f_insert($campo_01,$tabla_01);
+
+
+           if($guarda==1  && $guarda2==1 ){
+             $mensaje="Registro exitoso";
+
+
+           }
+           else{
+            $mensaje="Ocurrio un error al insertar la orden";
+
+          }
 
       }
-    }
 
-    ?>
+      else{
+       $mensaje="Ya existe un registro con esta orden";
+     }
+
+
+ }
+}
+
+ ?>
    
 
   
@@ -131,7 +160,7 @@
       if (isset($_POST["enviar"])) {?>
 
         
-        <div class='alert alert-danger' role='alert'> 
+        <div class='alert alert-success' role='alert'> 
           <button class='close' data-dismiss='alert'><span>&times;</span> </button>
           <?=$mensaje?> 
         </div>
@@ -143,7 +172,7 @@
          <div class="mb-3" id="contenido" name="contenido">
               <p>Registro de ordenes</p>
          </div>
-        
+         
       
          <div class="mb-3">
            <div class="form-check form-check-inline">
@@ -157,7 +186,11 @@
         </div>
       
       <div class="input-group mb-3">
-        <input class="form-control is-invalid" id="validationTextarea" placeholder="Ingrese un numero de orden" required id="orden" name="orden" >
+        <input class="form-control is-invalid" id="validationTextarea" placeholder="" value ="19"required id="anio" name="anio">
+        <input class="form-control is-invalid" id="validationTextarea" placeholder="" value="" required id="division" name="division" >
+          
+          
+        <input class="form-control is-invalid" id="validationTextarea" placeholder="" required id="orden" name="orden" >
         <div class="input-group-append">
           <button class="btn btn-outline-secondary" type="button" id="validar" name ="validar"value="Enviar">Validar</button>
         </div>
@@ -218,16 +251,15 @@
 
 
 
-<div id="Oculto" name="Oculto"></div>
-<?php
-  
+<div id="Oculto" name="Oculto" hidden=""></div>
 
-?>
 <script >
   $( "#validar" ).click(function() {
    $.post('validar-orden.php', {
             ID : $("input[name='orden']").val(),
-            DB : $("input[name='db']:checked").val()
+            DB : $("input[name='db']:checked").val(),
+            ANIO:$("input[name='anio']").val(),
+            DIVISION: $("input[name='division']").val()
 
             
         }, function(data){
@@ -241,10 +273,11 @@ $("input[name='orden']").keypress(function(e) {
     if(e.which == 13) {
 
 
-
         $.post('validar-orden.php', {
             ID : $("input[name='orden']").val(),
-            DB : $("input[name='db']:checked").val()
+            DB : $("input[name='db']:checked").val(),
+            ANIO:$("input[name='anio']").val(),
+            DIVISION: $("input[name='division']").val(),
 
             
         }, function(data){
@@ -252,7 +285,7 @@ $("input[name='orden']").keypress(function(e) {
         });
     }
 });
-
+  
 
 </script>
 </body>

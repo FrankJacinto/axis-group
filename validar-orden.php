@@ -16,9 +16,13 @@
 	<?php 
 	 include("includes/configaxis.php");
 	//$Iden = (is_numeric($_POST['ID']))?:NULL;
-	 $Iden=$_POST['ID'];
+	 $ORDEN=$_POST['ID'];
 	 $DB=$_POST['DB'];
+	 $ANIO=$_POST['ANIO'];
+	 $DIVISION=$_POST['DIVISION'];
 	 
+	 $Iden=$ANIO.'/'.$DIVISION.'00'.$ORDEN;
+
     echo "$Iden $Iden";
 
     echo "$DB";

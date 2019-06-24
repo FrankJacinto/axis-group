@@ -25,7 +25,8 @@
 
     $salida = "";
 
-    $query = "SELECT * FROM ordenes ORDER By id LIMIT 8";
+    $query = "SELECT * FROM ordenes ORDER By fecha desc LIMIT 10";
+
 
     if (isset($_POST['consulta'])) {
     	$q = $conn->real_escape_string($_POST['consulta']);
@@ -42,9 +43,9 @@
             <th scope='col'>Orden</th>
             <th scope='col'>Booking</th>
             <th scope='col'>Fecha</th>
-            <th scope='col'>Adjuntar</th>
             <th scope='col'>Estado</th>
-            
+            <th scope='col'>Adj</th>
+            <th scope='col'>Edit</th>
             
           </tr>
         </thead>
@@ -52,17 +53,21 @@
 
     	<tbody>";
        $id=12;
-    	while ($fila = $resultado->fetch_assoc()) {
+    	while ($fila = $resultado->fetch_array()) {
+            $boo="'".$fila[6]."'";
     		$salida.="<tr>
-    					<td>".$fila['id']."</td>
-    					<td>".$fila['orden']."</td>
-    					<td>".$fila['booking']."</td>
-    					<td>".$fila['fecha']."</td>
-
+    					<td>".$fila[0]."</td>
+    					<td>".$fila[1]."</td>
+    					<td>".$fila[6]."</td>
+    					<td>".$fila[5]."</td>
+                        <td>".$fila[10]."</td>
                         <td>
-                        <a data-toggle='modal' href='#exampleModal' onclick='enviar_orden(".$fila['id'].")'; ><img src='../Imagenes/pdf.png' ></a>
+                        <a data-toggle='modal' href='#exampleModal' onclick=enviar_orden(".$fila[0].",'".$fila[6]."'); ><img src='../Imagenes/pd.png' ></a>
                         </td>
-    					<td>Pendiente</td>
+                        <td>
+                        <a data-toggle='modal' href='#modal_listararchivos' onclick=enviar_orden(".$fila[0].",'".$fila[6]."'); ><img src='../Imagenes/edit.png' ></a>
+                        </td>
+    					
                         
     				</tr>";
 
@@ -81,8 +86,11 @@
 
 ?>
 <script type="text/javascript">
-    function enviar_orden(id){
+    function enviar_orden(id,booking) {
      $("input[name='ide']").val(id);
+     $("input[name='book']").val(booking);
+     <?php $valor= 'booking' ?>
+
 
   }
 </script>

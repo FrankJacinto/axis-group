@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 	<title></title>
@@ -12,36 +12,12 @@
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.min.css">
 	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
 <body>
-	<button class="btn btn-primary">hola mundo</button>
-	<footer class="page-footer font-small mdb-color darken-3 pt-4">
-
-  <!-- Footer Elements -->
-  <div class="container">
-
-    <!--Grid row-->
-    <div class="row d-flex justify-content-center">
-
-      <!--Grid column-->
-      <div class="col-md-6">
-
-        <!-- Video -->
-        <div class="embed-responsive embed-responsive-16by9 mb-4">
-          <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/vlDzYIIOYmM"
-            allowfullscreen></iframe>
-        </div>
-
-      </div>
-      <!--Grid column-->
-
-    </div>
-    <!--Grid row-->
-
-  </div>
-  <!-- Footer Elements -->
+	<!-- Footer -->
+<footer class="page-footer font-small blue">
 
   <!-- Copyright -->
-  <div class="footer-copyright text-center py-3">© 2018 Copyright:
-    <a href="https://mdbootstrap.com/education/bootstrap/"> MDBootstrap.com</a>
+  <div class="footer-copyright text-center py-3">© 2019 Copyright:
+    <a href="https://mdbootstrap.com/education/bootstrap/"> http://www.axisperu.pe/</a>
   </div>
   <!-- Copyright -->
 

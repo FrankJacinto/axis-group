@@ -93,14 +93,16 @@ function f_select_colaboradores($campos,$tabla1,$tabla2,$donde,$agrupado,$order)
 	$r=mysqli_query($conexion,$s);
 
 	return $r;
-	mysqli_close($conexion);
+	
 }
 function f_update($campos,$tabla,$donde){
+    $conexion=conexion();
 	$s="UPDATE $tabla SET $campos WHERE $donde";
 	conexion();
-	$r=mysql_query($s);
-	close();
+	$r=mysqli_query($conexion,$s);
 	return $r;
+	mysqli_close($conexion);
+	
 }
 
 function f_insert($campos,$tabla){
