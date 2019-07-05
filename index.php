@@ -26,8 +26,12 @@
 	if(isset($_POST["btn-ingresar"])){
 
 		if ((isset($_POST["usuario"])) && (isset($_POST["clave"]))) {
-			$usuario=$_POST["usuario"];
-			$clave=$_POST["clave"];
+			//$usuario=$_POST["usuario"];
+			//$clave=$_POST["clave"];
+
+			$usuario=mysqli_real_escape_string(conexion(),$_POST["usuario"]);
+			$clave=mysqli_real_escape_string(conexion(),$_POST["clave"]);
+			close();
           
             $campo_15="usuario, estado, tipo_usuario";
 			$tabla_15 = "usuario";
@@ -90,6 +94,8 @@
 
    }
 ?>
+   <div class="container-fluid">
+     
 	<div class="login-form">    
     <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" name="form-login">
 		<div align="center"><img src="http://www.axis-gl.com/images/logo-mail.png" alt="..." class="img-thumbnail"></div>
@@ -116,9 +122,8 @@
     	<?=$error?> 
     	</div>
     <?php }?> 		
-    <!--div class="text-center small">Don't have an account? <a href="#">Sign up</a></div-->
-
-    
+    <!--div class="text-center small">Don't have an account? <a href="#">Sign up</a></div-->    
+</div>
 </div>
 
 <script >
@@ -134,9 +139,6 @@
         });
 });
 </script>
-
-
-
 
 </body>
 </html>

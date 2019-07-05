@@ -16,8 +16,7 @@
 </head>
 <body>
 
-    <?php //include("includes/menu.php");
-         //include ("includes/config.php");
+    <?php 
          
 
          if (!isset($_SESSION["usuario"])) {
@@ -42,7 +41,12 @@
     <?php
     if(isset($_POST["enviar"])){
 
-     $orden=$_POST["orden"];
+     $anio=$_POST["anio"];
+     $division=$_POST["division"];
+     $ord=$_POST["orden"];
+    
+     $orden=$anio.'/'.$division.''.$ord;
+
      $tipo=$_POST["tipo"];
      $ruc=$_POST["ocultito"];
      $descripcion=$_POST["descripcion"];
@@ -153,7 +157,7 @@
  ?>
    
 
-  
+  <div class="container">
    <div class="login-form">
     
      <?php
@@ -188,8 +192,6 @@
       <div class="input-group mb-3">
         <input class="form-control is-invalid" id="validationTextarea" placeholder="" value ="19"required id="anio" name="anio">
         <input class="form-control is-invalid" id="validationTextarea" placeholder="" value="" required id="division" name="division" >
-          
-          
         <input class="form-control is-invalid" id="validationTextarea" placeholder="" required id="orden" name="orden" >
         <div class="input-group-append">
           <button class="btn btn-outline-secondary" type="button" id="validar" name ="validar"value="Enviar">Validar</button>
@@ -202,14 +204,14 @@
          <div class="mb-3">
             <input class="form-control is-invalid" id="validationTextarea" placeholder="Autocompletar Booking" required id="booking" name="booking">
             <div class="invalid-feedback">
-               Registrar un numero de orden
+               Autocompletado booking
             </div>
 
          </div>
          <div class="mb-3">
             <input class="form-control is-invalid" id="validationTextarea" placeholder="Cliente o Razon social" required id="cliente" name="cliente">
             <div class="invalid-feedback">
-               Registrar un numero de orden
+               Autoconpletado cliente
             </div>
 
          </div>
@@ -235,7 +237,7 @@
       <div class="custom-file">
         <input type="file" class="custom-file-input" id="validatedCustomFile" required id="image[]" name="image[]" multiple="">
         <label class="custom-file-label" for="validatedCustomFile">Seleccione imagenes a subir</label>
-        <div class="invalid-feedback">Numero de imagnes (1-15)</div>
+        <div class="invalid-feedback">Numero de imagenes (1-15)</div>
       </div>
 
       <div class="mb-3 separacion" >
@@ -243,13 +245,8 @@
       </div>
       
 
-      
-    
    </div>
-
-
-
-
+ </div>
 
 <div id="Oculto" name="Oculto" hidden=""></div>
 
@@ -288,5 +285,6 @@ $("input[name='orden']").keypress(function(e) {
   
 
 </script>
+
 </body>
 </html>

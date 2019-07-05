@@ -20,14 +20,14 @@
 	 $DB=$_POST['DB'];
 	 $ANIO=$_POST['ANIO'];
 	 $DIVISION=$_POST['DIVISION'];
-	 
-	 $Iden=$ANIO.'/'.$DIVISION.'00'.$ORDEN;
+	 	 
+	 $Iden=$ANIO.'/'.$DIVISION.''.$ORDEN;
 
     echo "$Iden $Iden";
 
     echo "$DB";
    
-	if($Iden){
+	if($ORDEN && $DIVISION){
 		
 		$donde_15 = "NRO_ORDEN='$Iden'";
 		$grupo_15 = "";
@@ -88,7 +88,7 @@
 		//echo "<script>alert('Estas metiendo un valor no numérico');</script>";
       ?>
 		 <script >
-         	$("#contenido").html("Debes completar el campo Numero de Orden");
+         	$("#contenido").html("Debes completar los campos");
          </script>
          
 	<?php }

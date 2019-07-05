@@ -19,6 +19,8 @@
 
 
 <body>
+
+  
 	<ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item">
     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Clientes</a>
@@ -37,7 +39,7 @@
 <div class="row">
     <div class="col-lg-10 col-xm-6 col-centrada table-responsive">
       <p>carga en one</p>
-      <table class="table table-striped ">
+      <table class="table table-striped table-sm ">
         <thead>
           <tr>
             <th scope="col">Ide</th>
@@ -174,7 +176,7 @@
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Editar Cliente</h5>
 
-         
+
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

@@ -16,10 +16,19 @@
      //print_r ($booking);
      //$archivo="HOJA-DE-RUTA.pdf";
      //$booking="54431706";
+
      if ($archivo&&$booking) {
-     	header("Content-disposition: inline; filename=$archivo");
-     	header("Content-type: application/pdf");
-     	readfile("../Archivosordenes/$booking/$archivo");
+
+     	$ruta="../Archivosordenes/".$booking."/".$archivo;
+     	if (file_exists($ruta)) {
+     		header("Content-disposition: inline; filename=$archivo");
+     		header("Content-type: application/pdf");
+     		readfile("../Archivosordenes/$booking/$archivo");
+     	}
+     	else{
+            echo "No se encontro archivo";
+     	}
+     	
      }
      
 

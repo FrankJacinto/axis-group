@@ -4,7 +4,7 @@
 	<title>Documentacion-Axis</title>
 	<meta charset="utf-8">
 
-	<meta charset="utf-8">
+	
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
@@ -19,7 +19,8 @@
 
     <link rel="stylesheet" type="text" href="../css/estilo.css">
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="../js/main.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+
 	<style type="text/css">
 
 
@@ -220,9 +221,6 @@
              		<li class="nav-item">
              			<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Ajuntar</a>
              		</li>
-             		<li class="nav-item">
-             			<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Acciones</a>
-             		</li>
              		
              	</ul>
              	<div class="tab-content" id="myTabContent">
@@ -231,163 +229,73 @@
 
              			</div>
 
-               <form class="was-validated" method="post" action="">
+             			<form class="was-validated" method="post" action="">
 
 
-               	<input type="text" hidden=""  name="ide" ide="ide">
+             				<input type="text" hidden=""  name="ide" ide="ide">
 
-               	<input type="text" hidden="" name="book" id="book" />
-
-               	<div class="form-group">
-               		<select class="custom-select" required id="documento" name="documento">
-               			<option value ="" >Seleccionar documento </option>
-               			<option value="DAM-40">DAM 40</option>
-               			<option value="DAM-41">DAM 41</option>
-               			<option value="BL-MASTER">BL Master</option>
-               			<option value="FACTURA-COMERCIAL">Factura comercial</option>
-               			<option value="CARTA-DE-TEMPERATURA">Carta de temperatura</option>
-               			<option value="HOJA-DE-RUTA">Hoja de ruta</option>
-               			<option value="INSPECCION-SENASA">Inspeccion SENASA</option>
-               		</select>
-               		<div class="invalid-feedback">Example invalid custom select feedback</div>
-               	</div>
-
-               	<div class="custom-file">
-               		<input type="file" class="custom-file-input"  required id="campoFichero" name="campoFichero" accept="application/pdf">
-               		<label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-               		<div class="invalid-feedback">Example invalid custom file feedback</div>
-               	</div>
-               
-               	<div class="modal-footer">
-               		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-               		<button type="submit" class="btn btn-primary" id="btn_cargar">Subir archivo</button>
-               	</div>
-               </form>
-
-             		</div>
-
-             		<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-             			<form class="was-validated" method="post" action="administrativo/mirar_pdf.php">
-
-                           <input type="text"  name="book" id="book" hidden="" />
+             				<input type="text" hidden="" name="book" id="book" />
 
              				<div class="form-group">
              					<select class="custom-select" required id="documento" name="documento">
              						<option value ="" >Seleccionar documento </option>
-             						<option value="DAM-40">DAM 40</option>
-             						<option value="DAM-41">DAM 41</option>
-             						<option value="BL-MASTER">BL Master</option>
-             						<option value="FACTURA-COMERCIAL">Factura comercial</option>
-             						<option value="CARTA-DE-TEMPERATURA">Carta de temperatura</option>
-             						<option value="HOJA-DE-RUTA">Hoja de ruta</option>
-             						<option value="INSPECCION-SENASA">Inspeccion SENASA</option>
+             						<option value="DAM 40">DAM 40</option>
+             						<option value="DAM 41">DAM 41</option>
+             						<option value="BL MASTER">BL Master</option>
+             						<option value="FACTURA COMERCIAL">Factura comercial</option>
+             						<option value="CARTA DE TEMPERATURA">Carta de temperatura</option>
+             						<option value="HOJA DE RUTA">Hoja de ruta</option>
+             						<option value="INSPECCION SENASA">Inspeccion SENASA</option>
              					</select>
              					<div class="invalid-feedback">Example invalid custom select feedback</div>
              				</div>
 
-             				
+             				<div class="custom-file">
+             					<input type="file" class="custom-file-input"  required id="campoFichero" name="campoFichero" accept="application/pdf">
+             					<label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+             					<div class="invalid-feedback">Example invalid custom file feedback</div>
+             				</div>
+
              				<div class="modal-footer">
-             					
              					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-             					<button type=" submit" class="btn btn-primary"> ver </button>
-             				
+             					<button type="submit" class="btn btn-primary" id="btn_cargar">Subir archivo</button>
              				</div>
              			</form>
+
              		</div>
              	
              	</div>   	
 
              </div>
 
-             
-
-
-          
-   			<!-- <div class="modal-body">
-   				<form class="was-validated" enctype='multipart/form-data' method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
-   					<div class="mb-3" >
-   						<p>Subir archivos</p>
-   					</div>
-
-
-                    <input type="text"  hidden="" name="ide">
-                    <input type="text" hidden=""  name="book">
-   					<div class="custom-file">
-   						<input type="file" class="custom-file-input" id="validatedCustomFile" required id="image[]" name="image[]" multiple="">
-   						<label class="custom-file-label" for="validatedCustomFile">Seleccione imagenes a subir</label>
-   						<div class="invalid-feedback">Seleccione los archivos .pdf (BL, VGM, Carta de zarpe)</div>
-   					</div>
-   					
-   					<div class="modal-footer">
-   						<button type="button" class="btn btn-secondary" >Cancelar</button>
-   						<button type="submit" class="btn btn-primary" onclick="abrirmodal();" id="btn_guardar" name="btn_guardar">Guardar</button>
-   					</div>
-   					
-   				</form>
-   			</div> -->
-   			
    		</div>
    	</div>
    </div>
 
 
-   <!--Modal editar archivos-->
+   <!--Modal ver archivos-->
 
    <div class="modal fade" id="modal_listararchivos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
    	<div class="modal-dialog" role="document">
    		<div class="modal-content">
    			<div class="modal-header">
-   				<h5 class="modal-title" id="exampleModalLabel">Ver /editar documentos</h5>
+   				<h5 class="modal-title" id="exampleModalLabel">Ver documentos</h5>
    				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
    					<span aria-hidden="true">&times;</span>
    				</button>
    			</div>
-             <!--Subir archivos individualmente-->
-
-
+             
               <div class="modal-body">
-
-
-
 
               	<input type="text" hidden=""  name="ide" ide="ide">
 
                	<input type="text" hidden="" name="book" id="book" />
                	
-               	<ul class="list-group">
+              	<div id="datos1">
+              		<p></p>
+              	</div>
 
-              		<!--Recuperar archivos del directorio-->
-              		<?php
-                               //Recuperar archivos de un directorio
-                    $book="B6JBK029541";
-              		$directory="Archivosordenes/".$book;
-              		$dirint = dir($directory);
-              		$cont=0;
-                    
-
-              		while (($archivo = $dirint->read()) !== false)
-              		{
-              			if (strpos($archivo, 'pdf')){?>
-
-              				<li class="list-group-item d-flex justify-content-between align-items-center">
-              					<?=$archivo?>
-              					<a href="ver_pdf.php?book=<?=$book?>&archivo=<?=$archivo?>">ver
-              						<span class="glyphicon glyphicon-download-alt"></span>
-              					</a>
-
-              				</li>
-
-              			<?php }
-
-              		}
-              		$dirint->close();
-              		?>
-              	</ul>
-
-
-               
               </div>	
-
 
    		</div>
    	</div>
@@ -410,16 +318,6 @@
    		});
    	});
    </script>
-  
-
-   <script >
-
-   	$( "#btn_enlace" ).click(function() {
-
-   		
-   	});
-   </script>
-
 
 
    <script language='javascript'>
@@ -471,12 +369,13 @@
 
 
    
-	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="js/main.js"></script>
-
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	
+    <script  src="https://code.jquery.com/jquery-3.3.1.min.js" type="text/javascript" ></script>
+	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <?php include ("./includes/footer.php");  ?>
+
 
 </body>
 </html>

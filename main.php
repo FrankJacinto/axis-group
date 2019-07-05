@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Bienvenido Axis Group</title>
+	<title>Axis Group</title>
 	<meta charset="utf-8">
  
-
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<script  src="https://code.jquery.com/jquery-3.3.1.min.js"  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
 
@@ -15,6 +14,7 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css">
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
   
+  <link rel="icon" type="image/png" href="imagenes/favicon.png" />
 	
 </head>
 <body>
@@ -56,11 +56,11 @@
            
           
          
-    <div class="container col-centrada">
+    <div class="container-fluid ">
      
-    <div class="col-lg-10 col-xm-6 col-centrada table-responsive">
+    <div class="col-lg-12 col-sm-6  table-responsive">
       
-      <table class="table table-striped mt-5">
+      <table class="table table-striped mt-3">
         <thead>
           <tr>
             <th scope="col">Orden</th>
@@ -168,80 +168,11 @@
      
     }
   </script>
+  <?php 
+    if ($_SESSION["tipo_usuario"]==5) {
+      include("includes/footer.php");
+    }
+  ?>
 
-  <div class="modal fade" id="modal_carrousel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <input type="text" name="orden1" id="orden1" >
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Imagenes del despacho</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            
-
-
-
-
-            <ol class="carousel-indicators">
-              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner">
-              <?php
-            //Recuperar imagenes de un directorio
-              $carpeta="087LIM322071";
-              $directory="Imagenes_ordenes/".$carpeta;
-              $dirint = dir($directory);
-              $cont=0;
-             
-              while (($archivo = $dirint->read()) !== false)
-              {
-                if (strpos($archivo, 'gif')|| strpos($archivo, 'jpg') || strpos($archivo, 'png')){
-                  if($cont==0){?>
-                   <div class="carousel-item active">
-                    <img src="<?=$directory.'/'.$archivo?>" class="d-block w-100" alt="...">
-                  </div>
-                <?php }
-                else{ ?>
-
-                  <div class="carousel-item ">
-                    <img src="<?=$directory.'/'.$archivo?>" class="d-block w-100" alt="...">
-                  </div>
-
-
-                <?php }
-               $cont=$cont+1;
-              }}
-                $dirint->close();
-                ?>
-
-               
-            </div>
-
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-            </a>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  V
-
-  <?php include ("includes/footer.php"); ?>
 </body>
 </html>
