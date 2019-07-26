@@ -9,7 +9,6 @@
    
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="css/estilos/estilos-login.css">
   <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css">
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   
@@ -67,7 +66,6 @@
       if($_FILES["image"]["name"][$key]) {
             $filename = $_FILES["image"]["name"][$key]; //Obtenemos el nombre original del archivo
             $source = $_FILES["image"]["tmp_name"][$key]; //Obtenemos un nombre temporal del archivo
-            $numeroorden="12345";
             $directorio = 'Imagenes_ordenes'.'/'.$booking; //Declaramos un  variable con la ruta donde guardaremos los archivos
             
             //Validamos si la ruta de destino existe, en caso de no existir la creamos
@@ -99,9 +97,9 @@
 
          $verificar_orden=mysqli_query(conexion(),"SELECT * FROM ordenes where orden='$orden'");
 
-         $verificar_imagenes=mysqli_query(conexion(),"SELECT * FROM imagenes where id_orden='$orden'");
+         //$verificar_imagenes=mysqli_query(conexion(),"SELECT * FROM imagenes where id_orden='$orden'");
 
-         if(mysqli_num_rows($verificar_orden)==0 && mysqli_num_rows($verificar_imagenes)==0){
+         if(mysqli_num_rows($verificar_orden)==0){
 
            $campo_00 = "id='null',";
            $campo_00.= "orden='$orden',";
@@ -117,24 +115,7 @@
 
            $guarda = f_insert($campo_00,$tabla_00);
 
-           //Insertar las rutas de las imagenes 
-
-           $tabla_01="imagenes";
-
-           $campo_01= "id='null',";
-
-           for ($i=0; $i <$cantidadimagenes ; $i++) { 
-             $campo_01.= "ruta".($i+1)."='$rutas_imagenes[$i]',";
-           //echo "ruta".($i+1)."='$rutas_imagenes[$i]',";
-           }
-
-           $campo_01.= "id_orden='$orden'";
-           //echo "$campo_01";
-
-           $guarda2=f_insert($campo_01,$tabla_01);
-
-
-           if($guarda==1  && $guarda2==1 ){
+           if($guarda==1){
              $mensaje="Registro exitoso";
 
 
@@ -144,13 +125,16 @@
 
           }
 
-      }
+        }
 
-      else{
-       $mensaje="Ya existe un registro con esta orden";
+        else{
+         $mensaje="Ya existe un registro con esta orden";
+       }
+
+
      }
-
-
+ else{
+  $mensaje="Ocurrio un error al insertar imagenes";
  }
 }
 
@@ -158,7 +142,8 @@
    
 
   <div class="container">
-   <div class="login-form">
+   <div class="row">
+    <div class="col col-lg-4 div-center">   
     
      <?php
       if (isset($_POST["enviar"])) {?>
@@ -172,7 +157,7 @@
       
       ?> 
 
-    <form class="was-validated" enctype='multipart/form-data' method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+    <form class="was-validated formulario" enctype='multipart/form-data' method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
          <div class="mb-3" id="contenido" name="contenido">
               <p>Registro de ordenes</p>
          </div>
@@ -190,11 +175,11 @@
         </div>
       
       <div class="input-group mb-3">
-        <input class="form-control is-invalid" id="validationTextarea" placeholder="" value ="19"required id="anio" name="anio">
-        <input class="form-control is-invalid" id="validationTextarea" placeholder="" value="" required id="division" name="division" >
-        <input class="form-control is-invalid" id="validationTextarea" placeholder="" required id="orden" name="orden" >
+        <input class="form-control is-invalid" id="validationTextarea" placeholder="" maxlength="2" value ="19"required id="anio" name="anio">
+        <input class="form-control is-invalid" id="validationTextarea" placeholder="" value="" maxlength="2" required id="division" name="division" >
+        <input class="form-control is-invalid" id="validationTextarea" placeholder="" maxlength="6" required id="orden" name="orden" >
         <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button" id="validar" name ="validar"value="Enviar">Validar</button>
+          <button class="btn btn-success btn-outline-secondary" type="button" id="validar" name ="validar"value="Enviar">Validar</button>
         </div>
         <div class="invalid-feedback">
           Registrar un numero de orden
@@ -223,7 +208,7 @@
           <option value="<?=$lista_15[0]?>"><?=$lista_15[1]?></option>
                <?php } ?>
         </select>
-        <div class="invalid-feedback">Selleccione un item</div>
+        <div class="invalid-feedback">Seleccione un item</div>
       </div>
 
       <div class="mb-3">
@@ -241,12 +226,13 @@
       </div>
 
       <div class="mb-3 separacion" >
-            <button type="submit" class="btn btn-secondary btn-lg btn-block" id="enviar" name="enviar">Registrar</button>
+            <button type="btn btn-success" class="btn btn-success btn-lg btn-block" id="enviar" name="enviar">Registrar</button>
       </div>
       
 
    </div>
  </div>
+  </div>
 
 <div id="Oculto" name="Oculto" hidden=""></div>
 
