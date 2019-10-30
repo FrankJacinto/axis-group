@@ -20,7 +20,7 @@
 <?php
 	$servername = "localhost";
     $username = "root";
-  	$password = "";
+  	$password = "Axis2019.";
   	$dbname = "axis";
 
 	$conn = new mysqli($servername, $username, $password, $dbname);

@@ -1,9 +1,9 @@
-<?php
+   <?php
 function conexion(){
 
 	$server="localhost";
 	$usuario="root";
-	$pass="";
+	$pass="Axis2019.";
 	$bd = "axis";
 	$cn=mysqli_connect($server,$usuario,$pass);
 
@@ -16,8 +16,8 @@ function conexion(){
 	
 	return $cn;
 }
-function close(){
-	mysqli_close();
+function close($con){
+	mysqli_close($con);
 }
 function test(){
 	$mensaje="OK";
@@ -66,6 +66,34 @@ function f_select_union($campos,$tabla1,$tabla2,$donde,$agrupado,$order){
 	return $r;
 	mysqli_close($conexion);
 }
+function f_select_lineas_navieras($ruc){
+	$conexion=conexion();
+
+	if(!empty($ruc)){
+		$s="select ln.id, ln.nombre from cliente as c inner join cliente_linea_naviera as cl on c.ide=cl.id_cliente inner JOIN linea_naviera as ln on cl.id_linea_naviera=ln.id where c.RUC= $ruc";
+	}
+	
+	$r=mysqli_query($conexion,$s);
+
+	return $r;
+	mysqli_close($conexion);
+}
+function f_select_tecnologias(){
+	$conexion=conexion();
+	$s="select t.id_tecnologia,t.nombre  from tecnologia as t where t.estado='1'";
+	$r=mysqli_query($conexion,$s);
+
+	return $r;
+	mysqli_close($conexion);
+}
+function f_select_puertos(){
+	$conexion=conexion();
+	$s="select p.id_pod,p.nombre  from pod as p where p.estado='1'";
+	$r=mysqli_query($conexion,$s);
+
+	return $r;
+	mysqli_close($conexion);
+}
 function f_select_clientes($campos,$tabla1,$tabla2,$donde,$agrupado,$order){
 	$conexion=conexion();
 
@@ -102,7 +130,7 @@ function f_update($campos,$tabla,$donde){
 	$r=mysqli_query($conexion,$s);
 	return $r;
 	mysqli_close($conexion);
-	
+
 }
 
 function f_insert($campos,$tabla){
@@ -112,4 +140,82 @@ function f_insert($campos,$tabla){
 	mysqli_close($conexion);
 	return $r;
 }
+function f_select_cliente($ruc){
+      $conexion=conexion();
+      if(!empty($ruc)){
+      	$s="select ide,razon_social from cliente where ruc=$ruc ";
+      	$r=mysqli_query($conexion,$s);
+      	mysqli_close($conexion);
+      	return $r;
+      }
+}
+function f_select_customer($usuario){
+      $conexion=conexion();
+      if(!empty($usuario)){
+      	$s="select c.id_customer, nombres from customer as c inner join usuario as u on c.id_usuario=u.ide where u.usuario='$usuario'";
+      	$r=mysqli_query($conexion,$s);
+      	mysqli_close($conexion);
+      	return $r;
+      }
+}
+function f_select_reservas_cliente($id){
+      $conexion=conexion();
+      if(!empty($id)){
+      	$s="select r.id_reserva, r.producto, r.num_contenedores, p.nombre, p.id_pod, l.nombre,t.nombre, r.fecha, c.razon_social from reserva as r INNER join cliente as c on r.id_cliente=c.ide INNER join tecnologia as t 
+      	on r.id_tecnologia=t.id_tecnologia INNER join pod as p on r.id_pod=p.id_pod  INNER join linea_naviera as l on r.id_linea_naviera=l.id WHERE c.ide=$id";
+
+      	$r=mysqli_query($conexion,$s);
+      	mysqli_close($conexion);
+      	return $r;
+      }
+}
+function f_paginacion_reservas($id,$inicio,$tamanio){
+      $conexion=conexion();
+      if(!empty($id)){
+      	$s="select r.id_reserva, r.producto, r.num_contenedores,p.nombre,p.id_pod, l.nombre,l.id,t.nombre,t.id_tecnologia, r.fecha, c.razon_social from reserva as r INNER join cliente as c on r.id_cliente=c.ide INNER join tecnologia as t 
+      	on r.id_tecnologia=t.id_tecnologia INNER join pod as p on r.id_pod=p.id_pod  INNER join linea_naviera as l on r.id_linea_naviera=l.id WHERE c.ide=$id ORDER BY fecha DESC limit $inicio,$tamanio";
+      	
+      	$r=mysqli_query($conexion,$s);
+      	mysqli_close($conexion);
+      	return $r;
+      }
+}
+function f_paginacion_reservas_customer($id,$inicio,$tamanio){
+	 $conexion=conexion();
+
+      if(!empty($id)){
+
+      	$s="select r.id_reserva,c.razon_social, r.producto, p.nombre,t.nombre, r.fecha, ln.nombre 
+         from reserva as r inner join cliente as c on r.id_cliente=c.ide inner join customer as cu on c.id_customer=cu.id_customer
+         inner join linea_naviera as ln on r.id_linea_naviera=ln.id inner join pod as p on r.id_pod=p.id_pod inner join 
+         tecnologia as t 
+         on t.id_tecnologia=r.id_tecnologia
+         where cu.id_customer=$id
+         order by c.razon_social asc limit $inicio,$tamanio";
+      	
+      	$r=mysqli_query($conexion,$s);
+      	mysqli_close($conexion);
+      	return $r;
+      }
+}
+function f_reservas_customer($id){
+	 $conexion=conexion();
+
+      if(!empty($id)){
+
+      	$s="select r.id_reserva,c.razon_social, r.producto, p.nombre,t.nombre, r.fecha, ln.nombre 
+         from reserva as r inner join cliente as c on r.id_cliente=c.ide inner join customer as cu on c.id_customer=cu.id_customer
+         inner join linea_naviera as ln on r.id_linea_naviera=ln.id inner join pod as p on r.id_pod=p.id_pod inner join 
+         tecnologia as t 
+         on t.id_tecnologia=r.id_tecnologia
+         where cu.id_customer=$id";
+      	
+      	$r=mysqli_query($conexion,$s);
+      	mysqli_close($conexion);
+      	return $r;
+      }
+}
+
+
+
 ?>

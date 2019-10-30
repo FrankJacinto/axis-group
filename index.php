@@ -32,7 +32,7 @@
 
 			$usuario=mysqli_real_escape_string(conexion(),$_POST["usuario"]);
 			$clave=mysqli_real_escape_string(conexion(),$_POST["clave"]);
-			close();
+			
           
             $campo_15="usuario, estado, tipo_usuario";
 			$tabla_15 = "usuario";
@@ -57,7 +57,30 @@
 	        		session_start();
 	        		$_SESSION["usuario"]=$usuario;
 	        		$_SESSION["tipo_usuario"]=$tipo_usuario;
+	        		if ($_SESSION["tipo_usuario"]=="6") {
+	        			$array_20 =f_select_customer($usuario);
+	        			$lista_20 = mysqli_fetch_array($array_20);
+
+                        $_SESSION["id_customer"]=$lista_20[0];
+                        
+                        header("Location: main.php");
+                        
+	        		}
+
+	        		if ($_SESSION["tipo_usuario"]=="5") {
+	        			$array_16 =f_select_cliente($usuario);
+	        			$lista_16 = mysqli_fetch_array($array_16);
+
+                        $_SESSION["id_cliente"]=$lista_16[0];
+                        header("Location: main.php");
+                        
+	        			//header("Location:cliente/reservas.php");
+
+	        		}
+	        		
+	        		else{
 	        		header("Location: main.php");
+	        	    }
 
 	        	}
 	        	else{

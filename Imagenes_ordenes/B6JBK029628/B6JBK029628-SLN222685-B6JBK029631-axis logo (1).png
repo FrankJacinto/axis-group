@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Visualizar pdf</title>
+</head>
+<body>
+
+	B6JBK029631-axis logo.png  B6JBK029631<br />
+<b>Warning</b>:  readfile(Imagenes_ordenes/B6JBK029631/B6JBK029631-axis logo.png): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\axis\administrativo\descargar_imagen.php</b> on line <b>15</b><br />
+
+</body>
+</html>

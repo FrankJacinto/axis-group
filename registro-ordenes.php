@@ -3,14 +3,7 @@
 <head>
   <title>Bienvenido Axis Group</title>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <script  src="https://code.jquery.com/jquery-3.3.1.min.js"  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
-
-   
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css">
-  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  
   
 </head>
 <body>
@@ -66,7 +59,7 @@
       if($_FILES["image"]["name"][$key]) {
             $filename = $_FILES["image"]["name"][$key]; //Obtenemos el nombre original del archivo
             $source = $_FILES["image"]["tmp_name"][$key]; //Obtenemos un nombre temporal del archivo
-            $directorio = 'Imagenes_ordenes'.'/'.$booking; //Declaramos un  variable con la ruta donde guardaremos los archivos
+            $directorio = 'cliente/Imagenes_ordenes'.'/'.$booking; //Declaramos un  variable con la ruta donde guardaremos los archivos
             
             //Validamos si la ruta de destino existe, en caso de no existir la creamos
             if(!file_exists($directorio)){
@@ -101,8 +94,8 @@
 
          if(mysqli_num_rows($verificar_orden)==0){
 
-           $campo_00 = "id='null',";
-           $campo_00.= "orden='$orden',";
+         
+           $campo_00= "orden='$orden',";
            $campo_00.= "tipo='$tipo',";
            $campo_00.= "usuario='$usuario',";
            $campo_00.= "descripcion='$descripcion',";
@@ -112,15 +105,18 @@
            $campo_00.="ruc='$ruc',";
            $campo_00.="estado='Pendiente'";
            $tabla_00 = "ordenes";
+           
+           //echo $orden."-".$tipo."-".$usuario."-".$descripcion."-".$fecha."-".$booking."-".$cliente."-".$ruc."-".$estado;
 
            $guarda = f_insert($campo_00,$tabla_00);
 
            if($guarda==1){
-             $mensaje="Registro exitoso";
 
+             $mensaje="Registro exitoso";
 
            }
            else{
+
             $mensaje="Ocurrio un error al insertar la orden";
 
           }
@@ -141,11 +137,25 @@
  ?>
    
 
-  <div class="container">
-   <div class="row">
-    <div class="col col-lg-4 div-center">   
-    
-     <?php
+
+<div class="content-wrapper">
+        
+        <!-- Main content -->
+        <section class="content">
+          
+          <div class="row">
+            <div class="col-md-10">
+              <div class="box">
+                <div class="box-header with-border">
+                 
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="row">
+                      <div class="col-md-12">
+                              <!--Contenido-->
+                              <h3>Axis Group</h3>
+                              <?php
       if (isset($_POST["enviar"])) {?>
 
         
@@ -228,11 +238,20 @@
       <div class="mb-3 separacion" >
             <button type="btn btn-success" class="btn btn-success btn-lg btn-block" id="enviar" name="enviar">Registrar</button>
       </div>
-      
 
-   </div>
- </div>
-  </div>
+                      </div>
+                      </div>
+                        
+                      </div>
+                    </div><!-- /.row -->
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+
+        </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->
+
 
 <div id="Oculto" name="Oculto" hidden=""></div>
 

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Visualizar pdf</title>
+</head>
+<body>
+
+	157Diplomado Internacional en BI y BA_2018.pdf  SLN222645<br />
+<b>Warning</b>:  readfile(Hipercubo.pdf): failed to open stream: No such file or directory in <b>C:\xampp\htdocs\axis\ver_pdf.php</b> on line <b>14</b><br />
+
+</body>
+</html>
